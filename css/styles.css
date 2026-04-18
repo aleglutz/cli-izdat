@@ -1,0 +1,411 @@
+/* ═══════════════════════════════════════════════════
+   CLI-izdat · Site Stylesheet
+   After Ruth Wolf-Rehfeldt's typewritings: black + red ribbon on paper, systematic patterns, the poetry of typed characters as visual form.
+   ═══════════════════════════════════════════════════ */
+
+/* ── Fonts ── */
+@import url('https://fonts.cdnfonts.com/css/erika-type');
+@import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
+
+/* ── Root variables ── */
+:root {
+  /* Paper — warm off-white, like aged typewriter stock */
+  --paper: #f5f0e6;
+  --paper-warm: #ede7d9;
+  --paper-dark: #e4ddd0;
+
+  /* Ink — typewriter ribbon */
+  --ink: #1a1a18;
+  --ink-light: #4a4a46;
+  --ink-faint: #8a8a84;
+
+  /* Red ribbon */
+  --red: #cc3333;
+  --red-faint: rgba(204, 51, 51, 0.15);
+
+  /* Terminal (for CLI-izdat post pages) */
+  --terminal-bg: #0d1117;
+  --terminal-text: #8b949e;
+  --terminal-bright: #c9d1d9;
+
+  /* Spacing */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 32px;
+  --space-lg: 64px;
+  --space-xl: 96px;
+
+  /* Measure — max line length for readability */
+  --measure: 680px;
+}
+
+/* ── Body ── */
+body {
+  font-family: "Cascadia Code", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Typography ── */
+h1 {
+    font-family: 'Erica Type', sans-serif;
+    font-size: 18px;
+    line-height: 12px;
+    letter-spacing: -0.18em;
+    font-weight: 500;
+    color: var(--ink-faint);
+}
+h2 {
+    font-family: 'Syne Mono';
+    font-size: 16px;
+    line-height: 1.3;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    color: var(--red);
+}
+
+p {
+  margin-bottom: var(--space-xs);
+  max-width: var(--measure);
+}
+
+a {
+  color: var(--red);
+  text-decoration: none;
+  border-bottom: 1px solid var(--red-faint);
+  transition: border-color 0.2s;
+}
+
+a:hover {
+  border-bottom-color: var(--red);
+}
+
+small {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+/* Red emphasis — typewriter red ribbon shift */
+.red, em {
+  color: var(--red);
+  font-style: normal;
+}
+
+/* ── Layout ── */
+
+.last-login {
+  max-width: 960px;
+  padding: 0 var(--space-md) 0;
+  font-size: 14px;
+  color: var(--ink-faint);       
+}
+
+/* Pre-built pattern (use in HTML: <div class="divider">─ ─ ── ─── ──── ─── ── ─ ─</div>) */
+
+/* ── Typewriter pattern header ornament 
+padding: 0 var(--space-md) 0;
+── */
+
+header::before {
+  content: "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+";
+  display: block;
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--red-faint);
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+header {
+  margin-top: 0;
+  padding-left: var(--space-md);
+  max-width: 960px;
+}
+
+main {
+  max-width: 960px;
+  padding-left: var(--space-md);
+}
+
+footer {
+  max-width: 960px;
+  padding: var(--space-md);
+  padding-top: var(--space-md);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+/* ── Section ── */
+section {
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+/* ── Wolf-Rehfeldt Dividers ──── */
+
+.divider {
+  color: var(--ink-faint);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  line-height: 1;
+  margin: var(--space-sm) 0;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.divider--red {
+  color: var(--red-faint);
+}
+
+/* ── Typewriter pattern header ornament ── */
+
+header::after {
+  content: "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+";
+  display: block;
+  margin-top: var(--space-sm);
+  font-size: 0.65rem;
+  color: var(--red-faint);
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ── Nav ── */
+nav ul {
+  list-style: none;
+  padding-left: var(--space-md);
+  margin: 0;
+}
+
+nav a {
+  color: var(--ink-faint);
+  border-bottom: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: var(--red);
+}
+
+nav a.active {
+  color: var(--ink);
+}
+/* ── Cards grid (post index) ── */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.card {
+  background: var(--paper-warm);
+  border: 1px solid var(--paper-dark);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.card:hover {
+  border-color: var(--red-faint);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-body {
+  padding: var(--space-sm);
+}
+
+.card-body h3 {
+  margin-bottom: 4px;
+}
+
+.card-body small {
+  display: block;
+}
+
+/* ── Post page (light mode — article view) ── */
+article.post {
+  max-width: var(--measure);
+}
+
+article.post img {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--space-md) 0;
+}
+
+article.post .meta {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  margin-bottom: var(--space-md);
+}
+
+/* ── Tags ── */
+.tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  border: 1px solid var(--paper-dark);
+  padding: 2px 8px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+}
+
+
+/* ═══════════════════════════════════════════════════
+   CLI-IZDAT SLIDES
+   Dark terminal aesthetic for slide-based post pages.
+   Apply class .cli-izdat to <body> to activate.
+   ═══════════════════════════════════════════════════ */
+
+body.cli-izdat {
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+}
+
+body.cli-izdat header {
+  border-bottom: 1px solid #21262d;
+}
+
+body.cli-izdat header::after {
+  color: rgba(204, 51, 51, 0.2);
+}
+
+body.cli-izdat a {
+  color: var(--red);
+  border-bottom-color: rgba(204, 51, 51, 0.2);
+}
+
+body.cli-izdat a:hover {
+  border-bottom-color: var(--red);
+}
+
+body.cli-izdat footer {
+  color: #484f58;
+  border-top: 1px solid #21262d;
+}
+
+/* ── Slide container ── */
+.slides {
+  max-width: 540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.slide {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slide type: text */
+.slide--text {
+  background: var(--terminal-bg);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.slide--text pre {
+  font-family: "Syne Mono", monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--terminal-text);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.slide--text .prompt {
+  color: var(--red);
+  font-size: 0.8rem;
+  margin-bottom: var(--space-sm);
+}
+
+/* Slide type: image */
+.slide--image {
+  background: var(--terminal-bg);
+}
+
+.slide--image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Slide type: combo */
+.slide--combo {
+  background: var(--terminal-bg);
+}
+
+.slide--combo img {
+  width: 100%;
+  height: 60%;
+  object-fit: cover;
+  display: block;
+}
+
+.slide--combo .slide-text {
+  padding: var(--space-sm) var(--space-sm);
+  font-size: 0.8rem;
+  line-height: 1.55;
+  color: var(--terminal-text);
+}
+
+.slide--combo .slide-text em {
+  color: var(--terminal-bright);
+  font-style: normal;
+}
+
+.slide--combo .slide-text .hl {
+  color: var(--red);
+}
+
+/* ── CRT scanlines overlay ── */
+.scanlines::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  header {
+    padding: var(--space-md) var(--space-sm);
+  }
+  main {
+    padding: var(--space-sm);
+  }
+  h1 {
+    font-size: 1.3rem;
+  }
+  .slides {
+    max-width: 100%;
+  }
+}
