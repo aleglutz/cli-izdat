@@ -1,10 +1,16 @@
-/* ═══════════════════════════════════════════════════
+/* ═════
    CLI-izdat · Site Stylesheet
    After Ruth Wolf-Rehfeldt's typewritings: black + red ribbon on paper, systematic patterns, the poetry of typed characters as visual form.
-   ═══════════════════════════════════════════════════ */
+   ═════ */
 
 /* ── Fonts ── */
-@import url('https://fonts.cdnfonts.com/css/erika-type');
+@font-face {
+  font-family: 'Erica Type';
+  src: url('../assets/fonts/EricaType.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 @import url('https://fonts.googleapis.com/css2?family=Cascadia+Code:ital,wght@0,200..700;1,200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap');
 
@@ -55,12 +61,17 @@ body {
 /* ── Typography ── */
 h1 {
     font-family: 'Erica Type', sans-serif;
-    font-size: 18px;
-    line-height: 12px;
-    letter-spacing: -0.18em;
+    font-size: 17px;
+    line-height: 10px;
+    letter-spacing: -0.3em;
     font-weight: 500;
     color: var(--ink-faint);
 }
+
+h1 pre {
+    font-family: inherit;
+}
+
 h2 {
     font-family: 'Syne Mono';
     font-size: 16px;
@@ -97,30 +108,11 @@ small {
   font-style: normal;
 }
 
-/* ── Layout ── */
-
 .last-login {
   max-width: 960px;
   padding: 0 var(--space-md) 0;
-  font-size: 14px;
+  font-size: 13px;
   color: var(--ink-faint);       
-}
-
-/* Pre-built pattern (use in HTML: <div class="divider">─ ─ ── ─── ──── ─── ── ─ ─</div>) */
-
-/* ── Typewriter pattern header ornament 
-padding: 0 var(--space-md) 0;
-── */
-
-header::before {
-  content: "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+";
-  display: block;
-  margin-top: 8px;
-  font-size: 0.65rem;
-  color: var(--red-faint);
-  letter-spacing: 0.1em;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 header {
@@ -145,7 +137,7 @@ footer {
 /* ── Section ── */
 section {
   margin-top: var(--space-md);
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 /* ── Wolf-Rehfeldt Dividers ──── */
@@ -165,19 +157,6 @@ section {
   color: var(--red-faint);
 }
 
-/* ── Typewriter pattern header ornament ── */
-
-header::after {
-  content: "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+";
-  display: block;
-  margin-top: var(--space-sm);
-  font-size: 0.65rem;
-  color: var(--red-faint);
-  letter-spacing: 0.1em;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 /* ── Nav ── */
 nav ul {
   list-style: none;
@@ -188,7 +167,7 @@ nav ul {
 nav a {
   color: var(--ink-faint);
   border-bottom: none;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 nav a:hover {
@@ -198,6 +177,7 @@ nav a:hover {
 nav a.active {
   color: var(--ink);
 }
+
 /* ── Cards grid (post index) ── */
 .cards {
   display: grid;
@@ -394,38 +374,36 @@ body.cli-izdat footer {
   z-index: 10;
 }
 
-/* ── Two-column layout ── */
-.two-col {
+/* ── Section-bound image layout ── */
+.row-with-media {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-lg);
   align-items: start;
+  margin-bottom: var(--space-md);
 }
 
-.col-media {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(12, 40px);
-  position: relative;
+.row-no-media {
+  margin-bottom: var(--space-md);
+  max-width: var(--measure);
 }
 
-.col-media img {
+.row-media img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
 }
 
-.scatter-img-1 {
-  grid-column: 1 / 9;
-  grid-row: 1 / 6;
-  z-index: 1;
+.row-with-media:nth-child(1) .row-media img {
+  margin-top: 32px;
+  margin-left: 16px;
+  width: calc(100% - 16px);
 }
 
-.scatter-img-2 {
-  grid-column: 3 / 11;
-  grid-row: 4 / 10;
-  z-index: 2;
+.row-with-media:nth-child(3) .row-media img {
+  margin-top: 8px;
+  margin-left: 36px;
+  width: calc(100% - 36px);
 }
 
 /* ── Responsive ── */
@@ -434,8 +412,32 @@ body.cli-izdat footer {
   main { padding: var(--space-sm); }
   h1 { font-size: 1.3rem; }
   .slides { max-width: 100%; }
-  .two-col { grid-template-columns: 1fr; gap: var(--space-md); }
-  .col-media { display: flex; flex-direction: column; gap: var(--space-sm); }
-  .col-media img { width: 100%; height: auto; }
-  .scatter-img-1, .scatter-img-2 { grid-column: unset; grid-row: unset; position: static; }
+  .row-with-media {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+  .row-media { order: 1; }
+  .row-text { order: 0; }
+  .row-with-media:nth-child(1) .row-media img,
+  .row-with-media:nth-child(3) .row-media img {
+    margin: 0;
+    width: 100%;
+  }
 }
+
+/* Pre-built pattern (use in HTML: <div class="divider">─ ─ ── ─── ──── ─── ── ─ ─</div>) */
+
+/* ── Typewriter pattern header ornament 
+padding: 0 var(--space-md) 0;
+
+header::before {
+  content: "=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+";
+  display: block;
+  margin-top: 8px;
+  font-size: 0.65rem;
+  color: var(--red-faint);
+  letter-spacing: 0.1em;
+  overflow: hidden;
+  white-space: nowrap;
+}
+── */
