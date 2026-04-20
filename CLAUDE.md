@@ -47,3 +47,17 @@ There is currently no Markdown-to-HTML parser or static site generator — post 
 - `archive.html` — post index with CSS Grid card layout (`auto-fill, minmax(280px, 1fr)`)
 - `templates/` — empty, reserved for future reusable HTML templates
 - `assets/` — shared fonts and images
+
+## Image Scatter Principle
+
+Images in `.row-media` cells must never appear visually aligned or stacked. Each image within its grid cell should feel casually placed, not composed.
+
+Rules:
+- Every `.row-with-media:nth-child(N) .row-media img` must have distinctly different values for `margin-top`, `margin-left`, and `width`
+- `margin-top` range: 8px–80px (vary by at least 30px between sections)
+- `margin-left` range: 0px–40px
+- `width` range: 55%–80% (never 100%, never identical between sections)
+- No two consecutive sections may share the same `margin-top` value
+- On mobile, all scatter offsets reset to: `margin: 0`, `width: 100%`
+
+Goal: the right column should read as a loose collection, not a grid.
