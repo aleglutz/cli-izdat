@@ -71,9 +71,19 @@ body {
 }
 
 /* ── Typography ── */
+
+/* cqw chosen over transform:scale(): scale() doesn't affect layout
+   flow so the element keeps its original box, requiring awkward height
+   hacks. With container-type on <header>, 1cqw = 1% of header's
+   rendered width (capped at 960px by max-width), so the ASCII scales
+   proportionally at every breakpoint without ever exceeding its
+   container — no floor minimum to cause overflow on narrow viewports.
+   3.9cqw fills ~95% of the container (empirically calibrated from
+   DevTools: ASCII = 543px at 2.4cqw, scale factor = 3.9/2.4 = 1.625,
+   rendered width ≈ 882px vs 928px content — all characters visible). */
 h1 {
     font-family: 'Erica Type', sans-serif;
-    font-size: clamp(9px, 2vw, 28px);
+    font-size: clamp(4px, 3.9cqw, 40px);
     line-height: 0.5;
     letter-spacing: -0.3em;
     font-weight: 500;
@@ -130,6 +140,7 @@ header {
   margin-top: 0;
   padding-left: var(--space-md);
   max-width: 960px;
+  container-type: inline-size;
 }
 
 main {
