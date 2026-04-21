@@ -80,6 +80,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.last-login {
+  max-width: 960px;
+  padding-top: var(--space-sm);
+  padding-left: var(--space-md);
+  font-size: 14px;
+  color: var(--ink-faint);
+}
+
 /* ── Typography ── */
 
 /* cqw chosen over transform:scale(): scale() doesn't affect layout
@@ -126,6 +134,11 @@ a {
   transition: border-color 0.2s;
 }
 
+ac {
+  color: var(--ink-light);
+  text-decoration: none;
+}
+
 a:hover {
   border-bottom-color: var(--red);
 }
@@ -139,14 +152,6 @@ small {
 .red, em {
   color: var(--red);
   font-style: normal;
-}
-
-.last-login {
-  max-width: 960px;
-  padding-top: var(--space-sm);
-  padding-left: var(--space-md);
-  font-size: 14px;
-  color: var(--ink-faint);
 }
 
 header {
@@ -243,20 +248,20 @@ nav a.active {
 
 .row-with-media:nth-child(1) .row-media img {
   width: 50%;
-  margin-top: 48px;
+  margin-top: 8px;
   margin-left: auto;
 }
 
 .row-with-media:nth-child(2) .row-media img {
-  width: 40%;
-  margin-top: 30px;
-  margin-left: 70px;
+  width: 55%;
+  margin-top: 0px;
+  margin-left: 100px;
 }
 
 .row-with-media:nth-child(3) .row-media img {
-  width: 45%;
-  margin-top: 0px;
-  margin-left: 250px;
+  width: 50%;
+  margin-top: 16px;
+  margin-left: auto;
 }
 
 /* ── Responsive ── */
