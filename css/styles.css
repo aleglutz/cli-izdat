@@ -60,7 +60,7 @@
 
 /* ── Body ── */
 body {
-  font-family: "Cascadia Code", sans-serif;
+  font-family: "Cascadia Mono", monospace;
   font-weight: 400;
   font-style: normal;
   font-size: 14px;
@@ -84,7 +84,7 @@ h1 pre {
 }
 
 h2 {
-    font-family: 'Syne Mono';
+    font-family: 'Syne Mono', monospace;
     font-size: 16px;
     line-height: 1.3;
     letter-spacing: 0.05em;
@@ -319,4 +319,3 @@ article.post .meta {
   margin-right: 4px;
   margin-bottom: 4px;
 }
-
