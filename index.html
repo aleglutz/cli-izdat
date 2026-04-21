@@ -13,12 +13,9 @@
   const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
   document.getElementById('login-time').textContent = now.toLocaleString('en-US', options);
 </script>
-<nav>
-    <ul>
-        <li><a href="./" class="active">/home</a></li>
-        <li><a href="archive.html">/archive</a></li>
-    </ul>
-</nav>
+  <nav>
+    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="./" class="active">home</a><span class="nav-sep">/</span><a href="archive.html">archive</a>
+  </nav>
   <header>
     <h1>
 <pre>
