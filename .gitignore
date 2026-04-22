@@ -2,5 +2,6 @@
 slides/
 output/
 node_modules/
+_site/
 .DS_Store
 *.swp

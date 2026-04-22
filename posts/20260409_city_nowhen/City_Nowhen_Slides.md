@@ -1,3 +1,14 @@
+---
+title: City Nowhen
+subtitle: Discovering Seoul Memory Places through Dark Tourism with Kids
+date: 2026-04-10
+location: Seoul, South Korea
+tags:
+  - seoul
+  - memory
+  - dark-tourism
+status: ready
+---
 <!-- slide:cover -->
 ```sh
 ╔═══════════════════════════════════════════════════════════════════╗
