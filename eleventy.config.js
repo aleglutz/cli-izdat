@@ -3,6 +3,7 @@ export default function(eleventyConfig) {
   eleventyConfig.addPassthroughCopy("assets");
 
   return {
+    pathPrefix: "/cli-izdat/",
     dir: {
       input: ".",
       output: "_site",

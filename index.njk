@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>cli_izdat</title>
-  <link rel="stylesheet" href="css/styles.css" type="text/css">     
+  <link rel="stylesheet" href="{{ '/css/styles.css' | url }}">  
 </head>
 <body> 
  <p class="last-login">Last login: <ac><span id="login-time"></span></ac> on ttys000</p>
@@ -14,7 +14,7 @@
   document.getElementById('login-time').textContent = now.toLocaleString('en-US', options);
 </script>
   <nav>
-    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="./" class="active">home</a><span class="nav-sep">/</span><a href="archive.html">archive</a>
+    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="{{ '/' | url }}" class="active">home</a><span class="nav-sep">/</span><a href="{{ '/archive/' | url }}">archive</a>
   </nav>
   <header>
     <h1>
