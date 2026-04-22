@@ -42,7 +42,14 @@ layout: false
     <section>
       <h2>Archive</h2>
       <div class="cards">
-        <!-- сюда пойдут карточки постов -->
+        <ul class="post-list">
+            {% for post in collections.posts %}
+                <li>
+                    <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+                    <small>{{ post.data.date | date }}</small>
+                </li>
+            {% endfor %}
+        </ul>
       </div>
     </section>
   </main>

@@ -291,7 +291,7 @@ nav a.active {
 		width: 100%; 
 	} 
 }
-/* ── Cards grid (post index) ── */
+/* ── Cards grid (planned for archive v2 — see CLAUDE.md roadmap) ── */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -355,4 +355,103 @@ article.post .meta {
   padding: 2px 8px;
   margin-right: 4px;
   margin-bottom: 4px;
+}
+
+/* ── Slides ──────────────────────────────── */
+
+/* Контейнер ленты слайдов внутри post.njk */
+.slides {
+  max-width: 960px;
+  padding-left: 0;
+}
+
+/* Каждый слайд — блок с тонким разделителем сверху.
+   Переопределяет глобальное правило section { margin } выше,
+   потому что селектор .slides section.slide специфичнее. */
+.slides section.slide {
+  margin: 0;
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--paper-dark);
+}
+
+.slides section.slide:first-child {
+  border-top: none;
+  padding-top: var(--space-xs);
+}
+
+/* ── slide:cover — ASCII-бокс ── */
+.slide--cover pre {
+  font-family: "Cascadia Code", monospace;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: pre;          /* не переносим строки — ASCII сломается */
+  overflow-x: auto;          /* на узких экранах — горизонтальная прокрутка */
+  color: var(--ink);
+}
+
+/* ── slide:text — длинный текст ── */
+.slide--text pre {
+  font-family: "Cascadia Code", monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;     /* переносим длинные строки по словам */
+  max-width: var(--measure);
+  color: var(--ink);
+}
+
+.slide--text code {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ── slide:image ── */
+.slide--image {
+  max-width: var(--measure);
+}
+
+.slide--image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: var(--space-sm) 0;
+}
+
+.slide--image code {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ── slide:combo — текст + картинка стеком ── */
+.slide--combo {
+  max-width: var(--measure);
+}
+
+.slide--combo pre {
+  font-family: "Cascadia Code", monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  color: var(--ink);
+}
+
+.slide--combo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: var(--space-md);
+}
+
+.slide--combo code {
+  display: block;
+  font-size: 13px;
+  color: var(--ink-faint);
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .slides { padding-left: var(--space-sm); }
+  .slides section.slide { padding: var(--space-md) 0; }
+  .slide--cover pre { font-size: 10px; }
 }
