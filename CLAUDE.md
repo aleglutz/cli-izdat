@@ -1,36 +1,140 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude (claude.ai, Claude Code) when working with this repository.
 
 ## Project Overview
 
-CLI-IZDAT is a hand-crafted static website by Alég Lutohin exploring the aesthetic and conceptual relationship between Eastern Bloc samizdat practices and modern CLI/terminal interfaces. It is a research and publishing platform, not a conventional software project.
+**CLI-izdat** is a research and publishing project by Alég Lutohin exploring the aesthetic and conceptual relationship between Eastern Bloc samizdat practices and modern CLI/terminal interfaces. The repository hosts a static website and is being developed into a self-publishing pipeline where Markdown notes written in Obsidian become pages on the site.
 
-## Development
+This is a hybrid research/publishing project, not a conventional software product. CLI-izdat is both the aesthetic and the operating principle — work with it should prioritize terminal-based interaction (git, npm, Eleventy) over GUI tools.
 
-No build system — all files are hand-written and deployed as-is to GitHub Pages.
+Live site: https://aleglutz.github.io/cli-izdat/
 
-- **Local preview:** Open `index.html` directly in a browser, or use any static server (e.g., `python3 -m http.server`)
-- **Deploy:** Push to `main` branch → GitHub Pages auto-publishes (`.nojekyll` bypasses Jekyll)
-- **No linting, testing, or compilation step**
+## Stack
 
-The `.gitignore` excludes `.obsidian/`, `slides/`, and `output/` — Obsidian is used for note-taking; `slides/` and `output/` are reserved for a future build pipeline that doesn't yet exist.
+- **Static site generator:** Eleventy 3.1.5 (ES Modules, config uses `export default`)
+- **Template language:** Nunjucks (`.njk`) for layouts and pages
+- **Content:** Markdown with YAML frontmatter (equivalent to Obsidian Properties)
+- **Deployment:** GitHub Actions builds and deploys on push to `main`
+- **Hosting:** GitHub Pages, project site at `/cli-izdat/` path prefix
+- **Node version:** 20 (set in `.github/workflows/deploy.yml`)
 
-## Architecture
+## Development Workflow
 
-### Visual System (`css/styles.css`)
+### Local preview
 
-Two distinct visual themes coexist:
-- **Light/paper mode** (default): warm off-white `#f5f0e6`, dark ink `#1a1a18`, red accent `#cc3333` — evokes samizdat printed matter
-- **Dark/terminal mode** (`.cli-izdat` class on `<body>`): `#0d1117` background, `#8b949e` text — evokes CRT terminals
+```sh
+npx @11ty/eleventy --serve --pathprefix=/cli-izdat/
+```
 
-Core design tokens are CSS custom properties on `:root`. Spacing scale: `--space-xs` (8px) through `--space-xl` (96px). Typography: Cascadia Code (body), Syne Mono (headings), Erika Type (h1, via CDN).
+Serves on `http://localhost:8080/cli-izdat/` — the pathPrefix mirrors the production URL, so internal links work identically in dev and on Pages.
 
-Special effects: `.scanlines::after` pseudo-element for CRT overlay; wolf-rehfeldt divider patterns using typed characters.
+### Build once (no server)
 
-### Content Model
+```sh
+npx @11ty/eleventy
+```
 
-Posts live in `posts/<YYYYMMDD_slug>/` directories as Markdown files. Slides within a post are annotated with HTML comments:
+Output goes to `_site/` (gitignored).
+
+### Publishing a change
+
+1. Edit `.md` or `.njk` in Obsidian / any editor
+2. `git add -A && git commit -m "..." && git push`
+3. GitHub Actions rebuilds `_site/` and deploys to Pages
+4. Verify at https://aleglutz.github.io/cli-izdat/
+
+No manual build or deploy steps — push is the publish action.
+
+## Repository Structure
+
+```
+.
+├── eleventy.config.js          # ES module, pathPrefix: "/cli-izdat/"
+├── .eleventyignore             # README, pipeline docs, templates/, node_modules, .obsidian
+├── .github/workflows/deploy.yml
+├── .nojekyll                   # Tells Pages to skip Jekyll processing
+├── package.json                # "type": "module", devDependency @11ty/eleventy
+├── _includes/
+│   └── post.njk                # Layout for individual posts
+├── index.njk                   # Homepage
+├── archive/
+│   ├── index.njk               # Archive grid page; has layout: false in frontmatter
+│   ├── archive.json            # Directory data: applies layout: post.njk to posts
+│   └── {NNNN}/                 # One folder per post, zero-padded number
+│       ├── {Name}.md           # Post content with frontmatter
+│       └── attachments/        # Post-specific images (optional)
+├── css/
+│   └── styles.css
+├── assets/
+│   ├── fonts/
+│   └── images/
+└── posts/                      # Legacy, pre-migration; being phased out
+```
+
+## URL Conventions
+
+Disk path and URL are kept parallel for clarity:
+
+| Disk | URL |
+|---|---|
+| `index.njk` | `/` |
+| `archive/index.njk` | `/archive/` |
+| `archive/0001/CityNowhen.md` | `/archive/0001/CityNowhen/` |
+
+No custom `permalink` is configured — Eleventy's default path-to-URL mapping is used. The numbered folder pattern (`0001/`, `0002/`) is the canonical way to identify a post on the site.
+
+## Templates and Path Prefix
+
+All internal links use the `url` filter, never hardcoded paths:
+
+```njk
+<link rel="stylesheet" href="{{ '/css/styles.css' | url }}">
+<a href="{{ '/archive/' | url }}">archive</a>
+```
+
+The `url` filter automatically prepends `/cli-izdat/` from `pathPrefix` in `eleventy.config.js`. If the site ever moves to a custom domain, changing the prefix in one place updates every link.
+
+**Important:** `.html` files are passthrough-copied without template processing. To use `{{ ... }}` filters, the file must be `.njk`.
+
+## Data Cascade (how `layout` is resolved)
+
+Eleventy resolves data (including `layout`) in this precedence order, high to low:
+
+1. File's own frontmatter
+2. Template-specific data file (`{filename}.json`)
+3. Directory data file (`{foldername}.json`)
+4. Parent directory data files
+5. Global data (`_data/`)
+
+Current layout wiring:
+- `archive/archive.json` sets `layout: post.njk` for everything in `archive/`
+- `archive/index.njk` overrides with `layout: false` in its own frontmatter — the archive grid page is not a post and must not be wrapped in `post.njk`
+
+When adding new sections (e.g., `essays/`, `journal/`), follow the same pattern: one directory data file per section, one layout per content type.
+
+## Post Frontmatter
+
+```yaml
+---
+title: City Nowhen
+subtitle: Discovering Seoul Memory Places through Dark Tourism with Kids
+date: 2026-04-09
+location: Seoul, South Korea
+tags: [seoul, memory, dark-tourism]
+status: ready
+---
+```
+
+These fields are:
+- **Editable in Obsidian as Properties** (UI for YAML frontmatter)
+- **Queryable by Dataview** inside the vault
+- **Accessible in Nunjucks** as `{{ title }}`, `{{ subtitle }}`, etc.
+- **Eleventy-reserved keys:** `title`, `date`, `tags`, `layout`, `permalink`
+
+## Content Model: Slides
+
+Posts are structured as series of slides, separated by `---` with an HTML comment marking the type of each slide:
 
 ```markdown
 <!-- slide:cover -->
@@ -39,25 +143,70 @@ Posts live in `posts/<YYYYMMDD_slug>/` directories as Markdown files. Slides wit
 <!-- slide:combo -->
 ```
 
-There is currently no Markdown-to-HTML parser or static site generator — post content is either rendered manually or this pipeline is planned. The `archive.html` `.cards` container is a placeholder for post cards that have not yet been wired up.
+Currently the Markdown parser passes these comments through as HTML comments in the output — slide parsing and per-slide styling is **not yet implemented**. The body of a post renders as continuous HTML.
 
-### Page Structure
+When building slide parsing: the target is to wrap each slide in `<section class="slide slide--{type}">` and style each type distinctly (cover with full-width ASCII title, text on dark terminal background, image with terminal-prompt framing, combo with text overlaid on image).
 
-- `index.html` — homepage with terminal-style login display and ASCII logo
-- `archive.html` — post index with CSS Grid card layout (`auto-fill, minmax(280px, 1fr)`)
-- `templates/` — empty, reserved for future reusable HTML templates
-- `assets/` — shared fonts and images
+## Dual Output (planned)
 
-## Image Scatter Principle
+The same Markdown source is intended to produce two representations:
 
-Images in `.row-media` cells must never appear visually aligned or stacked. Each image within its grid cell should feel casually placed, not composed.
+1. **Web page** — vertical slide stream, scrolled (current site work is here)
+2. **Instagram carousel** — PNG 1080×1350, rendered by Playwright against the same HTML templates
+
+A `render.js` script using Playwright is planned but not yet written. The goal: one source, two outputs, no duplication.
+
+## Visual System (`css/styles.css`)
+
+Two coexisting themes:
+
+- **Paper mode** (default): warm off-white `#f5f0e6`, dark ink `#1a1a18`, red accent `#cc3333` — samizdat printed matter
+- **Terminal mode** (`.cli-izdat` class on `<body>`): background `#0d1117`, text `#8b949e` — CRT terminal
+
+Design tokens as CSS custom properties on `:root`. Spacing scale `--space-xs` (8px) through `--space-xl` (96px). Typography: Cascadia Code (body), Syne Mono (headings), Erika Type (h1 ASCII logos).
+
+### Image Scatter Principle
+
+Images in `.row-media` cells must never appear visually aligned or stacked. Each image in its grid cell should feel casually placed, not composed.
 
 Rules:
-- Every `.row-with-media:nth-child(N) .row-media img` must have distinctly different values for `margin-top`, `margin-left`, and `width`
-- `margin-top` range: 8px–80px (vary by at least 30px between sections)
+- Every `.row-with-media:nth-child(N) .row-media img` must have distinctly different `margin-top`, `margin-left`, and `width`
+- `margin-top` range: 8px–80px (vary by ≥30px between sections)
 - `margin-left` range: 0px–40px
 - `width` range: 55%–80% (never 100%, never identical between sections)
-- No two consecutive sections may share the same `margin-top` value
-- On mobile, all scatter offsets reset to: `margin: 0`, `width: 100%`
+- No two consecutive sections may share the same `margin-top`
+- On mobile (`@media max-width: 640px`), all scatter resets: `margin: 0`, `width: 100%`
 
-Goal: the right column should read as a loose collection, not a grid.
+Goal: the right column reads as a loose collection, not a grid.
+
+## Current Roadmap
+
+Completed:
+- Eleventy + Actions + Pages pipeline
+- pathPrefix-aware internal linking
+- Post layout (`post.njk`) with frontmatter-driven header
+- Directory-based URL structure (`archive/NNNN/`)
+
+Open:
+- Slide parsing (`<!-- slide:type -->` → `<section class="slide">`)
+- Auto-generated archive grid from Eleventy collection (currently `<div class="cards">` is empty placeholder)
+- Wikilink handling (`![[image.png]]` → standard markdown or plugin)
+- `render.js` Playwright PNG pipeline for Instagram
+- Mini-essay translation for Instagram captions
+- Phone sync for published PNGs
+- Instagram Graph API integration (long-term)
+
+## Working Principles
+
+- **CLI-first.** Prefer `git`, `npm`, `npx eleventy`, file editing, over GUI tools. CLI-izdat is both subject and method.
+- **Pure terminal aesthetic.** Decorative layers (noise textures, scanlines, fade animations, hover overlays) have been deliberately stripped in prior sessions. Terminal purity is the concept — do not reintroduce effects without explicit request.
+- **Inline styles in HTML are avoided in site files.** Styles belong in `css/styles.css`. Exception: historical witness-page prototypes use inline styles for Claude-preview environment constraints; those files are separate from the main site.
+- **Valid shell semantics.** CLI prompts in content (e.g., `n_euromancer@typedeck:~$`) should use plausible command structures, not decorative fake syntax.
+- **One source, multiple outputs.** The `.md` file is canonical. Web and Instagram are views of the same content.
+
+## Known Gotchas
+
+- Eleventy's `--dryrun` reports "Wrote 0 files" even on successful runs because nothing is physically written. For diagnostics, run without `--dryrun` and inspect `_site/`.
+- Pages aggressively caches. After deploy, use Cmd+Shift+R or an incognito window to see changes.
+- `package.json` must have `"type": "module"` at the top level. A duplicated `"type": "commonjs"` key caused ES module loading to fail earlier — JSON takes the last value for duplicate keys.
+- Both `.gitignore` and `.eleventyignore` should exclude `node_modules/`. When `.eleventyignore` exists, Eleventy's behavior around `.gitignore` can shift between versions; duplicating is safer.
