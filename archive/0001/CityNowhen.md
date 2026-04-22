@@ -12,7 +12,7 @@ status: ready
 <!-- slide:cover -->
 ```sh
 ╔═══════════════════════════════════════════════════════════════════╗
-║  zsh: n_euromancer@typedeck:~$                                    ║
+║  sh: n_euromancer@typedeck:~$                                     ║
 ║  Session Contents Restored on 10. Apr 2026 at 00:24               ║  
 ║                                                                   ║
 ║     _______ __           _   __              __                   ║
