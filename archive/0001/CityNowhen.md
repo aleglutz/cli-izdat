@@ -40,7 +40,7 @@ That small talk gave my Korean trip a research question: 'Could Seoul really be 
 <!-- slide:image -->
 
 `n_euromancer@typedeck:~$`
-![[haus-nowhere.png]]
+![[haus-nowhere.jpg]]
 `House of Nowhere, Seoul, architect [Architect Name], YYYY.`
 
 <!-- slide:combo -->
