@@ -40,7 +40,7 @@ That small talk gave my Korean trip a research question: 'Could Seoul really be 
 <!-- slide:image -->
 
 `n_euromancer@typedeck:~$`
-![[haus-nowhere.jpg]]
+![[haus-nowhere.dithered.webp]]
 `House of Nowhere, Seoul, architect [Architect Name], YYYY.`
 
 <!-- slide:combo -->
@@ -51,4 +51,4 @@ n_euromancer@typedeck:~$
 
 The influx of people, capital and coffee in this neoliberal heart of Asia – where even the taxis look as though they've been pulled straight out of Cyberpunk 2077 video-game – makes you feel as though you're in a timeless space. However, inspired by Pierre Noras idea that memory finds a place everywhere, I began to search for the creases in Seoul’s public spaces where the past is evident. Seoul’s history spans more than two thousand years and ancient temples are easy to find. However, I was interested in the memory of political events from the recent past. In particular, I wanted to explore how the history of relations with North Korea in 20th century is represented.
 
-![[seoul_taxi_drifters.jpg]]
+![[seoul_taxi_drifters.dithered.webp]]

@@ -25,9 +25,12 @@ eleventyConfig.addTransform("wikilinks", function (content) {
   const parentUrl = this.page.url.replace(/[^/]+\/?$/, "");
   const attachmentsUrl = pathPrefix.replace(/\/$/, "") + parentUrl + "attachments/";
   return content.replace(
-    /!\[\[([^\]]+)\]\]/g,
-    (_match, filename) => `<img src="${attachmentsUrl}${filename}" alt="">`
-  );
+  /!\[\[([^\]]+)\]\]/g,
+  (_match, path) => {
+    const filename = path.split("/").pop();
+    return `<img src="${attachmentsUrl}${filename}" alt="">`;
+  }
+);
 });
   eleventyConfig.addTransform("slides", function (content) {
   // Работаем только с HTML-страницами
