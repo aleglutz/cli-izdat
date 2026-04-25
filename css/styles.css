@@ -471,4 +471,10 @@ article.post .meta {
   .slides { padding-left: var(--space-sm); }
   .slides section.slide { padding: var(--space-md) 0; }
   .slide--cover pre { font-size: 10px; }
+  .last-login {
+    padding-left: 0px;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
