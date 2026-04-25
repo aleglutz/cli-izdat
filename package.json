@@ -21,5 +21,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",
     "playwright": "^1.59.1"
+  },
+  "dependencies": {
+    "figlet": "^1.11.0"
   }
 }

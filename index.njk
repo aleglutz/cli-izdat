@@ -7,41 +7,35 @@
   <link rel="stylesheet" href="{{ '/css/styles.css' | url }}">  
 </head>
 <body> 
- <p class="last-login">Last login: <ac><span id="login-time"></span></ac> on ttys000</p>
- <script>
-  const now = new Date();
-  const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-  document.getElementById('login-time').textContent = now.toLocaleString('en-US', options);
-</script>
-  <nav>
-    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="{{ '/' | url }}" class="active">home</a><span class="nav-sep">/</span><a href="{{ '/archive/' | url }}">archive</a>
-  </nav>
   <header>
+    <p class="last-login">Last login: <ac><span id="login-time"></span></ac> on ttys000</p>
+      <script>
+         const now = new Date();
+         const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+         document.getElementById('login-time').textContent = now.toLocaleString('en-US', options);
+      </script>
     <h1>
 <pre>
-::'######::'##:::::::'####::::::::::'####:'########:'########:::::'###::::'########:
-:'##... ##: ##:::::::. ##:::::::::::. ##::..... ##:: ##.... ##:::'## ##:::... ##..::
-: ##:::..:: ##:::::::: ##:::::::::::: ##:::::: ##::: ##:::: ##::'##:. ##::::: ##::::
-: ##::::::: ##:::::::: ##::'#######:: ##::::: ##:::: ##:::: ##:'##:::. ##:::: ##::::
-: ##::::::: ##:::::::: ##::........:: ##:::: ##::::: ##:::: ##: #########:::: ##::::
-: ##::: ##: ##:::::::: ##:::::::::::: ##::: ##:::::: ##:::: ##: ##.... ##:::: ##::::
-:. ######:: ########:'####::::::::::'####: ########: ########:: ##:::: ##:::: ##::::
-::......:::........::....:::::::::::....::........::........:::..:::::..:::::..:::::
+░█▀█░░░░░█▀▀░█░█░█▀▄░█▀█░█▄█░█▀█░█▀█░█▀▀░█▀▀░█▀▄
+░█░█░░░░░█▀▀░█░█░█▀▄░█░█░█░█░█▀█░█░█░█░░░█▀▀░█▀▄
+░▀░▀░▀▀▀░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀░▀░▀░▀░▀▀▀░▀▀▀░▀░▀
 </pre>
-    </h1>
+     </h1>
+<nav>
+    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="index.html" class="active">home</a><span class="nav-sep">/</span><a href="archive/index.html">archive</a>
+</nav>
   </header>
   <main>
     <section class="row-with-media">
         <div class="row-text">
             <h2>What is CLI-izdat?</h2>
-            <p>CLI-izdat (or cli_izdat) is an ongoing study of the aesthetic and technological relationships between Eastern Bloc samizdat practices and modern command-line interfaces.</p> 
+            <p>CLI-izdat is a system of visual communication developed from the ongoing study of the aesthetic and technological relationships between Eastern Bloc samizdat practices, command-line interfaces, and early diskmag subculture.</p>
             <p>Visual and text references are collected in the <a href="https://www.are.na/aleg-lutz/cli-izdat" target="_blank">are.na channel</a> of the same name.</p>
           </div>
         <div class="row-media">
         <img src="assets/images/chiponboard-ditheredBW.png" alt="">
       </div>        
     </section>
-    
     <section class="row-with-media">
       <div class="row-text">
         <h2>Who is typing?</h2>

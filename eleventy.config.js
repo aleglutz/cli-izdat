@@ -1,8 +1,12 @@
+import figlet from "figlet";
 export default function(eleventyConfig) {
     const pathPrefix = "/cli-izdat/";
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("assets");
     eleventyConfig.addPassthroughCopy("archive/**/attachments/**");
+    eleventyConfig.addFilter("figlet", function (text, font = "Slant") {
+        return figlet.textSync(text, { font });
+});
     eleventyConfig.addCollection("posts", function (collectionApi) {
         return collectionApi
         .getFilteredByGlob("archive/*/*.md")
@@ -16,7 +20,7 @@ export default function(eleventyConfig) {
   // место для будущих форматов — "human", "long" и т.д.
   return value.toISOString().slice(0, 10);
 });
-eleventyConfig.addTransform("wikilinks", function (content) {
+    eleventyConfig.addTransform("wikilinks", function (content) {
   if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) {
     return content;
   }
@@ -32,7 +36,7 @@ eleventyConfig.addTransform("wikilinks", function (content) {
   }
 );
 });
-  eleventyConfig.addTransform("slides", function (content) {
+    eleventyConfig.addTransform("slides", function (content) {
   // Работаем только с HTML-страницами
   if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) {
     return content;

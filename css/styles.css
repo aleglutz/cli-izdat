@@ -41,7 +41,7 @@ ul, ol {
   --paper: #f5f0e6;
   --paper-warm: #ede7d9;
   --paper-dark: #e4ddd0;
-
+  
   /* Ink — typewriter ribbon */
   --ink: #1a1a18;
   --ink-light: #4a4a46;
@@ -82,33 +82,28 @@ body {
 .last-login {
   max-width: 960px;
   padding-top: var(--space-sm);
-  padding-left: var(--space-md);
   font-size: 14px;
   color: var(--ink-faint);
 }
 
 /* ── Typography ── */
 
-/* cqw chosen over transform:scale(): scale() doesn't affect layout
-   flow so the element keeps its original box, requiring awkward height
-   hacks. With container-type on <header>, 1cqw = 1% of header's
-   rendered width (capped at 960px by max-width), so the ASCII scales
-   proportionally at every breakpoint without ever exceeding its
-   container — no floor minimum to cause overflow on narrow viewports.
-   3.9cqw fills ~95% of the container (empirically calibrated from
-   DevTools: ASCII = 543px at 2.4cqw, scale factor = 3.9/2.4 = 1.625,
-   rendered width ≈ 882px vs 928px content — all characters visible). */
+
 h1 {
-    font-family: 'Erica Type', sans-serif;
-    font-size: clamp(4px, 3.9cqw, 40px);
-    line-height: 0.5;
-    letter-spacing: -0.3em;
-    font-weight: 500;
-    color: var(--ink-faint);
-    margin-bottom: var(--space-md);
+  font-family: 'Cascadia Mono', monospace;
+  font-size: clamp(12px, 3.5cqw, 30px);
+  line-height: 1.1;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: var(--ink-faint);
+  margin: 0;
+  overflow: hidden;
 }
+
 h1 pre {
-    font-family: inherit;
+  font-family: inherit;
+  margin: 0;
+  white-space: pre;
 }
 
 h2 {
@@ -121,32 +116,50 @@ h2 {
     margin-bottom: var(--space-sm);
 }
 
+/* cqw chosen over transform:scale(): scale() doesn't affect layout
+   flow so the element keeps its original box, requiring awkward height
+   hacks. With container-type on <header>, 1cqw = 1% of header's
+   rendered width (capped at 960px by max-width), so the ASCII scales
+   proportionally at every breakpoint without ever exceeding its
+   container — no floor minimum to cause overflow on narrow viewports.
+   3.9cqw fills ~95% of the container (empirically calibrated from
+   DevTools: ASCII = 543px at 2.4cqw, scale factor = 3.9/2.4 = 1.625,
+   rendered width ≈ 882px vs 928px content — all characters visible). */
+
+h3 {
+    font-family: 'Erica Type', sans-serif;
+    font-size: clamp(4px, 3.9cqw, 40px);
+    line-height: 0.5;
+    letter-spacing: -0.3em;
+    font-weight: 500;
+    color: var(--ink-faint);
+    margin-bottom: var(--space-md);
+}
+h3 pre {
+    font-family: inherit;
+}
+
 p {
   margin-bottom: var(--space-xs);
   max-width: var(--measure);
 }
-
 a {
   color: var(--red);
   text-decoration: none;
   border-bottom: 1px solid var(--red-faint);
   transition: border-color 0.2s;
 }
-
 ac {
   color: var(--ink-light);
   text-decoration: none;
 }
-
 a:hover {
   border-bottom-color: var(--red);
 }
-
 small {
   font-size: 0.8rem;
   color: var(--ink-faint);
 }
-
 /* Red emphasis — typewriter red ribbon shift */
 .red, em {
   color: var(--red);
@@ -154,7 +167,6 @@ small {
 }
 
 header {
-  margin-top: var(--space-sm);
   padding-left: var(--space-md);
   padding-bottom: 0;
   max-width: 960px;
@@ -199,30 +211,26 @@ section {
 
 /* ── Nav ── */
 nav {
-  padding-left: var(--space-md);
-  margin-top: var(--space-xs);
-  margin-bottom: var(--space-sm);
   font-size: 14px;
   font-family: "Cascadia Mono", monospace;
+  margin-top: var(--space-xs);
+  margin-bottom: var(--space-xs);
+  
 }
-
 .nav-tilde,
 .nav-sep {
   color: var(--ink-faint);
 }
-
 nav a {
   color: var(--ink-faint);
   border-bottom: none;
   text-decoration: none;
 }
-
 nav a:hover {
-  color: var(--red);
-}
-
-nav a.active {
   color: var(--ink);
+}
+nav a.active {
+  color: var(--red);
 }
 
 
@@ -365,18 +373,20 @@ article.post .meta {
   padding-left: 0;
 }
 
-/* Каждый слайд — блок с тонким разделителем сверху.
-   Переопределяет глобальное правило section { margin } выше,
-   потому что селектор .slides section.slide специфичнее. */
 .slides section.slide {
-  margin: 0;
-  padding: var(--space-md) 0;
-  border-top: 1px solid var(--paper-dark);
+  aspect-ratio: 4 / 5;
+  max-width: 540px;
+  /*margin: 0 auto var(--space-md);*/
+  padding: var(--space-sm);
+  box-sizing: border-box;
+  border: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.slides section.slide:first-child {
-  border-top: none;
-  padding-top: var(--space-xs);
+.slides section.slide > :last-child {
+  margin-top: auto;
 }
 
 /* ── slide:cover — ASCII-бокс ── */
@@ -386,6 +396,13 @@ article.post .meta {
   line-height: 1.2;
   white-space: pre;          /* не переносим строки — ASCII сломается */
   overflow-x: auto;          /* на узких экранах — горизонтальная прокрутка */
+  color: var(--ink);
+}
+
+.slide--cover code {
+  display: block;
+  font-size: 14px;
+  white-space: pre-wrap;     /* переносим длинные строки по словам */
   color: var(--ink);
 }
 

@@ -18,6 +18,7 @@
     <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="{{ '/' | url }}">home</a><span class="nav-sep">/</span><a href="{{ '/archive/' | url }}">archive</a><span class="nav-sep">/</span><span class="active">{{ title }}</span>
   </nav>
 
+  {# 
   <header>
     <h2>{{ title }}</h2>
     {% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
@@ -25,7 +26,8 @@
       {% if date %}{{ date.toISOString().slice(0, 10) }}{% endif %}
       {% if location %} · {{ location }}{% endif %}
     </small>
-  </header>
+  </header> 
+  #}
 
   <main>
     <article class="slides">
