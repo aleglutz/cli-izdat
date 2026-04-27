@@ -1,6 +1,7 @@
 /* ═════
    CLI-izdat · Site Stylesheet
-   After Ruth Wolf-Rehfeldt's typewritings: black + red ribbon on paper, systematic patterns, the poetry of typed characters as visual form.
+   After Ruth Wolf-Rehfeldt's typewritings: black + red ribbon on paper, 
+   systematic patterns, the poetry of typed characters as visual form.
    ═════ */
 
 /* ── Fonts ── */
@@ -194,23 +195,6 @@ section {
   margin-bottom: var(--space-lg);
 }
 
-/* ── Wolf-Rehfeldt Dividers ──── */
-
-.divider {
-  color: var(--ink-faint);
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  line-height: 1;
-  margin: var(--space-sm) 0;
-  overflow: hidden;
-  white-space: nowrap;
-  user-select: none;
-}
-
-.divider--red {
-  color: var(--red-faint);
-}
-
 /* ── Nav ── */
 nav {
   font-size: 14px;
@@ -376,6 +360,7 @@ article.post .meta {
 }
 
 .slides section.slide {
+  position: relative;
   aspect-ratio: 4 / 5;
   max-width: 540px;
   /*margin: 0 auto var(--space-md);*/
@@ -391,9 +376,19 @@ article.post .meta {
   margin-top: auto;
 }
 
+.slide-num {
+  position: absolute;
+  bottom: var(--space-sm);
+  right: var(--space-sm);
+  font-family: "Cascadia Mono", monospace;
+  font-size: 12px;
+  color: var(--ink-faint);
+  user-select: none;
+}
+
 /* ── slide:cover — ASCII-бокс ── */
 .slide--cover pre {
-  font-family: "Cascadia Code", monospace;
+  font-family: "Cascadia Mono", monospace;
   font-size: 12px;
   line-height: 1.2;
   white-space: pre;          /* не переносим строки — ASCII сломается */
@@ -410,7 +405,7 @@ article.post .meta {
 
 /* ── slide:text — длинный текст ── */
 .slide--text pre {
-  font-family: "Cascadia Code", monospace;
+  font-family: "Cascadia Mono", monospace;
   font-size: 14px;
   line-height: 1.7;
   white-space: pre-wrap;     /* переносим длинные строки по словам */
@@ -448,7 +443,7 @@ article.post .meta {
 }
 
 .slide--combo pre {
-  font-family: "Cascadia Code", monospace;
+  font-family: "Cascadia Mono", monospace;
   font-size: 14px;
   line-height: 1.7;
   white-space: pre-wrap;
@@ -479,4 +474,118 @@ article.post .meta {
     white-space: nowrap;
     overflow: hidden;
   }
+}
+/* ═════
+   Render mode — full-bleed 1080×1350 для Instagram PNG
+   Активируется body.render-mode (set by render.js or ?render=1)
+   ═════ */
+
+body.render-mode {
+  background: var(--paper);
+}
+
+body.render-mode header,
+body.render-mode footer,
+body.render-mode .last-login {
+  display: none;
+}
+
+body.render-mode main,
+body.render-mode .slides {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Каждый слайд — точный Instagram-формат */
+body.render-mode .slides section.slide {
+  width: 1080px;
+  height: 1350px;
+  max-width: none;
+  aspect-ratio: auto;
+  padding: 80px;
+  margin: 0;
+  box-sizing: border-box;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Отменяем "последний ребёнок прижимается вниз" из обычного режима */
+body.render-mode .slides section.slide > :last-child {
+  margin-top: 0;
+}
+
+/* ── Шрифты по типам слайдов ── */
+
+body.render-mode .slide--cover pre {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+body.render-mode .slide--cover code {
+  font-size: 22px;
+}
+
+body.render-mode .slide--text pre {
+  font-size: 26px;
+  line-height: 1.6;
+  max-width: none;
+}
+
+body.render-mode .slide--text code {
+  font-size: 22px;
+}
+
+body.render-mode .slide--image img,
+body.render-mode .slide--combo img {
+  max-width: 100%;
+  max-height: 65%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  margin: var(--space-md) auto;
+}
+
+body.render-mode .slide--image code,
+body.render-mode .slide--combo code {
+  font-size: 22px;
+}
+
+body.render-mode .slide--combo pre {
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+body.render-mode .slide-num {
+  bottom: 60px;
+  right: 60px;
+  font-size: 20px;
+}
+
+body.render-mode .slide--cover .cli-prompt {
+  font-size: 22px;
+  color: var(--ink-faint);
+  margin-bottom: var(--space-md);
+}
+
+body.render-mode .slide--cover h1 pre {
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0;
+}
+
+body.render-mode .slide--cover .subtitle {
+  font-size: 24px;
+  margin-top: var(--space-md);
+  color: var(--ink);
+}
+
+body.render-mode .slide--cover .topics {
+  font-size: 20px;
+  margin-top: var(--space-sm);
+  color: var(--ink-faint);
 }

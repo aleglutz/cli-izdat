@@ -37,22 +37,18 @@ export default function(eleventyConfig) {
 );
 });
     eleventyConfig.addTransform("slides", function (content) {
-  // Работаем только с HTML-страницами
   if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) {
     return content;
   }
-  // Если слайд-маркеров нет — ничего не делаем (fallback для обычных страниц)
   if (!content.includes("<!-- slide:")) {
     return content;
   }
-  // Ищем зону слайдов
   const zone = content.match(/<article class="slides">([\s\S]*?)<\/article>/);
   if (!zone) return content;
   const [fullMatch, inner] = zone;
-  // Разбиваем по маркерам: split с capture-группой
-  // отдаёт массив [префикс, type1, body1, type2, body2, ...]
   const parts = inner.split(/<!--\s*slide:(\w+)\s*-->/);
-  let slides = "";
+  // parts[0] is content before the first marker (e.g. the static cover from post.njk)
+  let slides = parts[0];
   for (let i = 1; i < parts.length; i += 2) {
     const type = parts[i];
     const body = (parts[i + 1] || "").trim();
@@ -60,6 +56,21 @@ export default function(eleventyConfig) {
   }
   const wrapped = `<article class="slides">\n${slides}</article>`;
   return content.replace(fullMatch, wrapped);
+});
+    eleventyConfig.addTransform("slide-numbers", function (content) {
+  if (!this.page.outputPath || !this.page.outputPath.endsWith(".html")) return content;
+  const slidePattern = /<section class="slide [^"]*">[\s\S]*?<\/section>/g;
+  const allSlides = content.match(slidePattern);
+  if (!allSlides) return content;
+  const total = allSlides.length;
+  const tt = String(total).padStart(2, "0");
+  let counter = 0;
+  return content.replace(slidePattern, (match) => {
+    counter++;
+    const nn = String(counter).padStart(2, "0");
+    const insertAt = match.lastIndexOf("</section>");
+    return match.slice(0, insertAt) + `<span class="slide-num">${nn}/${tt}</span>\n</section>`;
+  });
 });
   return {
     pathPrefix: pathPrefix,

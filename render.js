@@ -32,11 +32,15 @@ console.log(`→ Opening ${url}`);
 const browser = await chromium.launch();
 const context = await browser.newContext({
   viewport: { width: IG_WIDTH, height: IG_HEIGHT },
-  deviceScaleFactor: 2,
 });
 const page = await context.newPage();
 
 await page.goto(url, { waitUntil: "networkidle" });
+
+await page.evaluate(async () => {
+  document.body.classList.add("render-mode");
+  await document.fonts.ready;
+});
 
 const slides = page.locator(".slide");
 const count = await slides.count();
