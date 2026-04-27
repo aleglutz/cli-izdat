@@ -55,6 +55,7 @@ No manual build or deploy steps — push is the publish action.
 ├── .github/workflows/deploy.yml
 ├── .nojekyll                   # Tells Pages to skip Jekyll processing
 ├── package.json                # "type": "module", devDependency @11ty/eleventy
+├── render.js                   # Playwright PNG pipeline (Instagram carousel output)
 ├── _includes/
 │   └── post.njk                # Layout for individual posts
 ├── index.njk                   # Homepage
@@ -64,12 +65,13 @@ No manual build or deploy steps — push is the publish action.
 │   └── {NNNN}/                 # One folder per post, zero-padded number
 │       ├── {Name}.md           # Post content with frontmatter
 │       └── attachments/        # Post-specific images (optional)
+├── bin/
+│   └── dither.sh               # Image dithering helper
 ├── css/
 │   └── styles.css
-├── assets/
-│   ├── fonts/
-│   └── images/
-└── posts/                      # Legacy, pre-migration; being phased out
+└── assets/
+    ├── fonts/
+    └── images/
 ```
 
 ## URL Conventions
@@ -156,6 +158,8 @@ The same Markdown source is intended to produce two representations:
 
 `render.js` is implemented. Usage: `node render.js /cli-izdat/archive/0001/CityNowhen/` — requires the dev server running on port 8080. It opens the page at 1080×1350 (@2x), locates `.slide` elements, and screenshots each to `slides/{NNNN}-{Name}/slide-01.png` etc.
 
+**render-mode (open):** Instagram render needs larger font sizes than the web view. Planned approach: `--font-base` CSS custom property + a `.render-mode` class on `<body>` that overrides it, toggled by Playwright before screenshotting. Do not hardcode font sizes for this — use the CSS var override pattern.
+
 ## Visual System (`css/styles.css`)
 
 Two coexisting themes:
@@ -163,7 +167,7 @@ Two coexisting themes:
 - **Paper mode** (default): warm off-white `#f5f0e6`, dark ink `#1a1a18`, red accent `#cc3333` — samizdat printed matter
 - **Terminal mode** (`.cli-izdat` class on `<body>`): background `#0d1117`, text `#8b949e` — CRT terminal
 
-Design tokens as CSS custom properties on `:root`. Spacing scale `--space-xs` (8px) through `--space-xl` (96px). Typography: Cascadia Code (body), Syne Mono (headings), Erika Type (h1 ASCII logos).
+Design tokens as CSS custom properties on `:root`. Spacing scale `--space-xs` (8px) through `--space-xl` (96px). Typography: Cascadia Code (body), Syne Mono (`h2`), IBM VGA 8x16 (`h3` subheadings), Erika Type (loaded but currently unused in layout).
 
 ### Image Scatter Principle
 
@@ -190,11 +194,18 @@ Completed:
 - Wikilink handling (`![[image.png]]` → `<img>` via Eleventy transform)
 - `render.js` Playwright PNG pipeline for Instagram
 
-Open:
+Active (next up):
+- **figlet h1 on post pages** — render `{{ title | figlet(cover_font) }}` as ASCII art header; filter already exists in `eleventy.config.js`, needs wiring into `post.njk`
+- **render-mode font override** — `--font-base` CSS var + `.render-mode` body class for Instagram-size fonts, toggled by Playwright
+- **archive grid** — populate `<div class="cards">` in `archive/index.njk` via loop over `collections.posts`; each card = cover slide + clickable title + date
+
+Backlog:
 - Per-slide CSS styling (cover, text, image, combo types)
-- Auto-generated archive grid from Eleventy collection (currently `<div class="cards">` is empty placeholder)
+- `slide:video` type — parser + template support
+- `slide:combo` with background image — `<!-- bg: filename.png -->` syntax (not yet in `eleventy.config.js`)
+- Auto-dithering pipeline for `attachments/` (ImageMagick, Floyd-Steinberg/Atkinson/Bayer, triggered per-post via `dither: true` frontmatter flag)
 - Mini-essay translation for Instagram captions
-- Phone sync for published PNGs
+- Phone sync for published PNGs (Syncthing/AirDrop)
 - Instagram Graph API integration (long-term)
 
 ## Working Principles
