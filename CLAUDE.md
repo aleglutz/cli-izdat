@@ -143,9 +143,9 @@ Posts are structured as series of slides, separated by `---` with an HTML commen
 <!-- slide:combo -->
 ```
 
-Currently the Markdown parser passes these comments through as HTML comments in the output — slide parsing and per-slide styling is **not yet implemented**. The body of a post renders as continuous HTML.
+Slide parsing is implemented as an Eleventy transform (`"slides"` in `eleventy.config.js`). It runs on every HTML output page, finds `<article class="slides">`, splits on `<!-- slide:type -->` markers, and wraps each chunk in `<section class="slide slide--{type}">`. `post.njk` wraps `{{ content }}` in `<article class="slides">`, so the selector is always present for post pages.
 
-When building slide parsing: the target is to wrap each slide in `<section class="slide slide--{type}">` and style each type distinctly (cover with full-width ASCII title, text on dark terminal background, image with terminal-prompt framing, combo with text overlaid on image).
+Per-slide CSS styling (cover, text, image, combo) is still open.
 
 ## Dual Output (planned)
 
@@ -154,7 +154,7 @@ The same Markdown source is intended to produce two representations:
 1. **Web page** — vertical slide stream, scrolled (current site work is here)
 2. **Instagram carousel** — PNG 1080×1350, rendered by Playwright against the same HTML templates
 
-A `render.js` script using Playwright is planned but not yet written. The goal: one source, two outputs, no duplication.
+`render.js` is implemented. Usage: `node render.js /cli-izdat/archive/0001/CityNowhen/` — requires the dev server running on port 8080. It opens the page at 1080×1350 (@2x), locates `.slide` elements, and screenshots each to `slides/{NNNN}-{Name}/slide-01.png` etc.
 
 ## Visual System (`css/styles.css`)
 
@@ -186,12 +186,13 @@ Completed:
 - pathPrefix-aware internal linking
 - Post layout (`post.njk`) with frontmatter-driven header
 - Directory-based URL structure (`archive/NNNN/`)
+- Slide parsing (`<!-- slide:type -->` → `<section class="slide slide--{type}>`)
+- Wikilink handling (`![[image.png]]` → `<img>` via Eleventy transform)
+- `render.js` Playwright PNG pipeline for Instagram
 
 Open:
-- Slide parsing (`<!-- slide:type -->` → `<section class="slide">`)
+- Per-slide CSS styling (cover, text, image, combo types)
 - Auto-generated archive grid from Eleventy collection (currently `<div class="cards">` is empty placeholder)
-- Wikilink handling (`![[image.png]]` → standard markdown or plugin)
-- `render.js` Playwright PNG pipeline for Instagram
 - Mini-essay translation for Instagram captions
 - Phone sync for published PNGs
 - Instagram Graph API integration (long-term)
