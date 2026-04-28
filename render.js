@@ -51,7 +51,23 @@ for (let i = 0; i < count; i++) {
   const filename = `slide-${String(i + 1).padStart(2, "0")}.png`;
   const filepath = path.join(outDir, filename);
 
-  await slide.screenshot({ path: filepath });
+  if (i === 0) {
+    // Size cover slide to fill 1350px minus header height, so header+cover = exactly 1350px
+    const header = page.locator("header");
+    const headerBox = await header.boundingBox();
+    const coverHeight = IG_HEIGHT - headerBox.height;
+    await slide.evaluate((el, h) => {
+      el.style.height = `${h}px`;
+      el.style.minHeight = `${h}px`;
+    }, coverHeight);
+    await page.screenshot({
+      path: filepath,
+      clip: { x: 0, y: 0, width: IG_WIDTH, height: IG_HEIGHT }
+    });
+  } else {
+    await slide.scrollIntoViewIfNeeded();
+    await slide.screenshot({ path: filepath });
+  }
   console.log(`  ${filename}`);
 }
 

@@ -12,6 +12,15 @@ export default function(eleventyConfig) {
         .getFilteredByGlob("archive/*/*.md")
         .reverse(); // свежие сверху
 });
+    eleventyConfig.addFilter("renderDate", function(date) {
+        const d = date instanceof Date ? date : new Date();
+        const opts = {
+            weekday: 'short', month: 'short', day: '2-digit',
+            hour: '2-digit', minute: '2-digit', second: '2-digit',
+            hour12: false
+        };
+        return d.toLocaleString('en-US', opts);
+    });
     eleventyConfig.addFilter("date", function (value, format = "iso") {
         if (!(value instanceof Date)) return value;
         if (format === "iso") {
@@ -64,12 +73,19 @@ export default function(eleventyConfig) {
   if (!allSlides) return content;
   const total = allSlides.length;
   const tt = String(total).padStart(2, "0");
+  const prompt = `<span class="slide-prompt">n_euromancer@<span class="prompt-host">emag</span>:~<span class="prompt-sign">$</span></span>`;
   let counter = 0;
   return content.replace(slidePattern, (match) => {
     counter++;
     const nn = String(counter).padStart(2, "0");
-    const insertAt = match.lastIndexOf("</section>");
-    return match.slice(0, insertAt) + `<span class="slide-num">${nn}/${tt}</span>\n</section>`;
+    const openEnd = match.indexOf(">") + 1;
+    const closeStart = match.lastIndexOf("</section>");
+    return (
+      match.slice(0, openEnd) +
+      `\n${prompt}\n` +
+      match.slice(openEnd, closeStart) +
+      `<span class="slide-num">${nn}/${tt}</span>\n</section>`
+    );
   });
 });
   return {

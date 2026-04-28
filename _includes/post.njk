@@ -7,33 +7,17 @@
   <link rel="stylesheet" href="{{ '/css/styles.css' | url }}">
 </head>
 <body>
-  <p class="last-login">Last login: <ac><span id="login-time"></span></ac> on ttys000</p>
-  <script>
-    const now = new Date();
-    const options = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
-    document.getElementById('login-time').textContent = now.toLocaleString('en-US', options);
-  </script>
-
-  <nav>
-    <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="{{ '/' | url }}">home</a><span class="nav-sep">/</span><a href="{{ '/archive/' | url }}">archive</a><span class="nav-sep">/</span><span class="active">{{ title }}</span>
-  </nav>
-
-  {# 
   <header>
-    <h2>{{ title }}</h2>
-    {% if subtitle %}<p>{{ subtitle }}</p>{% endif %}
-    <small>
-      {% if date %}{{ date.toISOString().slice(0, 10) }}{% endif %}
-      {% if location %} · {{ location }}{% endif %}
-    </small>
-  </header> 
-  #}
+    <p class="last-login">Last login: <ac>{{ null | renderDate }}</ac> on ttys000</p>
+    <h1 class="post-figlet"><pre>{{ title | figlet(cover_font or "Slant") }}</pre></h1>
+    <nav>
+      <span class="nav-tilde">~</span><span class="nav-sep">/</span><a href="{{ '/' | url }}">home</a><span class="nav-sep">/</span><a href="{{ '/archive/' | url }}">archive</a><span class="nav-sep">/</span><span class="active">{{ title }}</span>
+    </nav>
+  </header>
 
   <main>
     <article class="slides">
       <section class="slide slide--cover">
-        <div class="cli-prompt">n_euromancer@diskmag:~$</div>
-        <h1><pre>{{ title | figlet("Slant") }}</pre></h1>
         <p class="subtitle">{{ subtitle }}</p>
         <p class="topics">topics: {{ tags | join(" | ") }}</p>
       </section>

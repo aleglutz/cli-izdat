@@ -114,6 +114,17 @@ h1 pre {
   white-space: pre;
 }
 
+/* Post page: figlet header — wider than n_euromancer logo, needs tighter clamp */
+header h1.post-figlet pre {
+  font-family: 'Cascadia Mono', monospace;
+  font-size: clamp(8px, 2.2cqw, 22px);
+  line-height: 1.1;
+  color: var(--ink);
+  margin: 0;
+  white-space: pre;
+  overflow: hidden;
+}
+
 h2 {
     font-family: 'Syne Mono', monospace;
     font-size: 16px;
@@ -376,14 +387,9 @@ article.post .meta {
   margin-top: auto;
 }
 
-.slide-num {
-  position: absolute;
-  bottom: var(--space-sm);
-  right: var(--space-sm);
-  font-family: "Cascadia Mono", monospace;
-  font-size: 12px;
-  color: var(--ink-faint);
-  user-select: none;
+.slide-num,
+.slide-prompt {
+  display: none;
 }
 
 /* ── slide:cover — ASCII-бокс ── */
@@ -482,12 +488,45 @@ article.post .meta {
 
 body.render-mode {
   background: var(--paper);
+  margin: 0;
+  padding: 0;
 }
 
-body.render-mode header,
 body.render-mode footer,
-body.render-mode .last-login {
+body.render-mode header nav {
   display: none;
+}
+
+body.render-mode header {
+  max-width: none;
+  padding: 80px 80px 0 80px;
+  margin: 0;
+  container-type: normal;
+}
+
+body.render-mode header .last-login {
+  max-width: none;
+  padding-top: 0;
+  font-size: 20px;
+  color: var(--ink-faint);
+}
+
+body.render-mode header h1 {
+  font-size: unset;
+}
+
+body.render-mode header h1 pre {
+  font-family: 'Cascadia Mono', monospace;
+  font-size: 22px;
+  line-height: 1.1;
+  color: var(--ink);
+  margin: var(--space-sm) 0 0 0;
+  white-space: pre;
+}
+
+body.render-mode header h1.post-figlet pre {
+  font-size: 22px;
+  line-height: 1.1;
 }
 
 body.render-mode main,
@@ -513,6 +552,15 @@ body.render-mode .slides section.slide {
   overflow: hidden;
 }
 
+/* Cover slide collapses to content height — Playwright clips header+cover together */
+body.render-mode .slides section.slide--cover {
+  height: auto;
+  min-height: 0;
+  aspect-ratio: auto;
+  padding-top: var(--space-md);
+  justify-content: flex-start;
+}
+
 /* Отменяем "последний ребёнок прижимается вниз" из обычного режима */
 body.render-mode .slides section.slide > :last-child {
   margin-top: 0;
@@ -529,16 +577,59 @@ body.render-mode .slide--cover code {
   font-size: 22px;
 }
 
-body.render-mode .slide--text pre {
-  font-size: 26px;
-  line-height: 1.6;
+/* slide:speech — короткий диалог */
+body.render-mode .slide--speech p {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 36px;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 var(--space-md) 0;
   max-width: none;
 }
 
-body.render-mode .slide--text code {
-  font-size: 22px;
+/* slide:quote — тезис с акцентом */
+body.render-mode .slide--quote p {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  margin: 0 0 var(--space-md) 0;
+}
+body.render-mode .slide--quote h3 {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 44px;
+  line-height: 1.35;
+  color: var(--ink);
+  font-weight: 400;
+  margin: 0;
+  max-width: none;
 }
 
+/* slide:text — абзацный блок */
+body.render-mode .slide--text p {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 32px;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 var(--space-md) 0;
+  max-width: none;
+}
+body.render-mode .slide--text strong {
+  font-weight: 400;
+  color: var(--red);
+}
+
+/* slide:combo — текст + картинка */
+body.render-mode .slide--combo p {
+  font-family: "Cascadia Mono", monospace;
+  font-size: 28px;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0 0 var(--space-md) 0;
+  max-width: none;
+}
+
+/* slide:image и slide:combo — картинки */
 body.render-mode .slide--image img,
 body.render-mode .slide--combo img {
   max-width: 100%;
@@ -546,46 +637,51 @@ body.render-mode .slide--combo img {
   width: auto;
   height: auto;
   object-fit: contain;
-  margin: var(--space-md) auto;
+  margin: var(--space-md) 0;
 }
 
 body.render-mode .slide--image code,
 body.render-mode .slide--combo code {
-  font-size: 22px;
-}
-
-body.render-mode .slide--combo pre {
-  font-size: 24px;
-  line-height: 1.5;
-}
-
-body.render-mode .slide-num {
-  bottom: 60px;
-  right: 60px;
-  font-size: 20px;
-}
-
-body.render-mode .slide--cover .cli-prompt {
+  font-family: "Cascadia Mono", monospace;
   font-size: 22px;
   color: var(--ink-faint);
-  margin-bottom: var(--space-md);
+  display: block;
 }
 
-body.render-mode .slide--cover h1 pre {
-  font-size: 22px;
-  line-height: 1.1;
-  color: var(--ink);
-  margin: 0;
+body.render-mode .slide-prompt {
+  display: block;
+  position: absolute;
+  top: var(--space-md);
+  left: var(--space-md);
+  font-family: "Cascadia Mono", monospace;
+  font-size: 18px;
+  color: var(--ink-faint);
+  user-select: none;
+}
+body.render-mode .slide-prompt .prompt-host { color: var(--ink-light); }
+body.render-mode .slide-prompt .prompt-sign { color: var(--red); }
+
+body.render-mode .slide-num {
+  display: block;
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--space-md);
+  font-family: "Cascadia Mono", monospace;
+  font-size: 18px;
+  color: var(--ink-faint);
+  user-select: none;
 }
 
 body.render-mode .slide--cover .subtitle {
-  font-size: 24px;
+  font-family: "Cascadia Mono", monospace;
+  font-size: 32px;
   margin-top: var(--space-md);
   color: var(--ink);
 }
 
 body.render-mode .slide--cover .topics {
-  font-size: 20px;
-  margin-top: var(--space-sm);
+  font-family: "Cascadia Mono", monospace;
+  font-size: 24px;
+  margin-top: var(--space-xs);
   color: var(--ink-faint);
 }
