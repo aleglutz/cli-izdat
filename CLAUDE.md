@@ -222,3 +222,8 @@ Backlog:
 - Pages aggressively caches. After deploy, use Cmd+Shift+R or an incognito window to see changes.
 - `package.json` must have `"type": "module"` at the top level. A duplicated `"type": "commonjs"` key caused ES module loading to fail earlier — JSON takes the last value for duplicate keys.
 - Both `.gitignore` and `.eleventyignore` should exclude `node_modules/`. When `.eleventyignore` exists, Eleventy's behavior around `.gitignore` can shift between versions; duplicating is safer.
+## render-mode (active task)
+CSS var `--font-base` + `.render-mode` class on `<body>`.
+Playwright adds the class before screenshotting.
+URL param `?render=1` adds it in browser (for preview).
+Do NOT hardcode font sizes — always use the var override pattern.
