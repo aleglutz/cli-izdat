@@ -384,12 +384,16 @@ article.post .meta {
   aspect-ratio: 4 / 5;
   max-width: 540px;
   /*margin: 0 auto var(--space-md);*/
-  padding: var(--space-sm);
+  padding: 0px;
   box-sizing: border-box;
   border: 0px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+}
+
+.render-mode .slides section.slide {
+  padding: var(--space-sm);
 }
 
 .slides section.slide > :last-child {
