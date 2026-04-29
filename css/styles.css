@@ -96,7 +96,6 @@ body {
 
 /* ── Typography ── */
 
-
 h1 {
   font-family: 'Cascadia Mono', monospace;
   font-size: clamp(12px, 3.5cqw, 30px);
@@ -160,7 +159,7 @@ p {
 a {
   color: var(--red);
   text-decoration: none;
-  border-bottom: 1px solid var(--red-faint);
+  border-bottom: 0px solid var(--red-faint);
   transition: border-color 0.2s;
 }
 ac {
@@ -360,6 +359,16 @@ article.post .meta {
   padding: 2px 8px;
   margin-right: 4px;
   margin-bottom: 4px;
+}
+
+.topics a {
+  color: var(--ink-faint);
+  border-bottom: none;
+  text-decoration: none;
+}
+
+.topics a:hover {
+  color: var(--ink);
 }
 
 /* ── Slides ──────────────────────────────── */

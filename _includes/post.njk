@@ -19,7 +19,11 @@
     <article class="slides">
       <section class="slide slide--cover">
         <p class="subtitle">{{ subtitle }}</p>
-        <p class="topics">topics: {{ tags | join(" | ") }}</p>
+        <p class="topics">topics:
+          {% for tag in tags %}
+            <a href="{{ ('/archive/tag/' + tag + '/') | url }}">{{ tag }}</a>{% if not loop.last %} | {% endif %}
+          {% endfor %}
+        </p>
       </section>
       {{ content | safe }}
     </article>
