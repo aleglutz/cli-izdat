@@ -4,9 +4,10 @@
   "type": "module",
   "description": "https://aleglutz.github.io/cli-izdat/",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+ "scripts": {
+  "dev": "eleventy --serve --watch",
+  "build": "eleventy"
+},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aleglutz/cli-izdat.git"
