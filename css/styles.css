@@ -251,20 +251,20 @@ nav .active {
 
 .row-with-media:nth-child(1) .row-media img {
   width: 50%;
-  margin-top: 8px;
-  margin-left: auto;
+  margin-top: 48px;
+  margin-left: 50px;
 }
 
 .row-with-media:nth-child(2) .row-media img {
   width: 55%;
-  margin-top: 0px;
+  margin-top: 64px;
   margin-left: 100px;
 }
 
 .row-with-media:nth-child(3) .row-media img {
   width: 50%;
   margin-top: 16px;
-  margin-left: auto;
+  margin-left: 100px;
 }
 
 /* ── Responsive ── */
@@ -275,7 +275,7 @@ nav .active {
 	nav, 
 	.last-login, 
 	footer { 
-		padding-left: var(--space-sm); 
+		padding-left: var(--space-xs); 
 		padding-right: var(--space-sm); 
 	} 
 	
@@ -383,7 +383,7 @@ article.post .meta {
   position: relative;
   aspect-ratio: 4 / 5;
   max-width: 540px;
-  /*margin: 0 auto var(--space-md);*/
+  margin: 0px;
   padding: 0px;
   box-sizing: border-box;
   border: 0px;
@@ -420,6 +420,26 @@ article.post .meta {
   font-size: 14px;
   white-space: pre-wrap;     /* переносим длинные строки по словам */
   color: var(--ink);
+}
+
+.slides section.slide--cover {
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  color: var(--terminal-bright);
+}
+
+.slide--cover .subtitle,
+.slide--cover .topics {
+  background: rgba(13, 17, 23, 0.75);
+  padding: 2px 6px;
+  display: inline-block;
+}
+
+.slide--cover pre,
+.slide--cover code {
+  color: var(--terminal-bright);
+  text-shadow: 0 0 8px var(--terminal-bg);
 }
 
 /* ── slide:text — длинный текст ── */
@@ -484,7 +504,7 @@ article.post .meta {
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
-  .slides { padding-left: var(--space-sm); }
+  .slides { padding-left: 0px; }
   .slides section.slide { padding: var(--space-md) 0; }
   .slide--cover pre { font-size: 10px; }
   .last-login {

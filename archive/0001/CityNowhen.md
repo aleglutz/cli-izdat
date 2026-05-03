@@ -1,7 +1,8 @@
 ---
 title: City Nowhen
-cover_font: Slant
 subtitle: Dark Tourism in Seoul with Kids
+cover_font: Slant
+cover_image: square-Mapo-gu.webp
 date: 2026-04-10
 location: Seoul, South Korea
 tags:

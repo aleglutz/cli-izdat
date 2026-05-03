@@ -16,8 +16,10 @@
   </header>
 
   <main>
+    {% set parentUrl = page.url | replace(page.fileSlug + '/', '') %}
+    {% set attachmentsUrl = (parentUrl + 'attachments/') | url %}
     <article class="slides">
-      <section class="slide slide--cover">
+      <section class="slide slide--cover"{% if cover_image %} style="background-image: url('{{ attachmentsUrl }}{{ cover_image }}')"{% endif %}>
         <p class="subtitle">{{ subtitle }}</p>
         <p class="topics">topics:
           {% for tag in tags %}
