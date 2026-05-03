@@ -1,5 +1,5 @@
 /* ═════
-   CLI-izdat · Site Stylesheet
+   euromancer · Site Stylesheet
    After Ruth Wolf-Rehfeldt's typewritings: black + red ribbon on paper, 
    systematic patterns, the poetry of typed characters as visual form.
    ═════ */
@@ -59,7 +59,7 @@ ul, ol {
   --red: #cc3333;
   --red-faint: rgba(204, 51, 51, 0.15);
 
-  /* Terminal (for CLI-izdat post pages) */
+  /* Terminal (for euromancer post pages) */
   --terminal-bg: #0d1117;
   --terminal-text: #8b949e;
   --terminal-bright: #c9d1d9;

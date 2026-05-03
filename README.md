@@ -1,1 +1,1 @@
-https://aleglutz.github.io/cli-izdat/
+https://aleglutz.github.io/euromancer/

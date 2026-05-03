@@ -1,7 +1,7 @@
 // render.js
-// Turns a CLI-izdat post page into a series of Instagram-ready PNGs.
+// Turns a euromancer post page into a series of Instagram-ready PNGs.
 // Usage: node render.js <post-url-path>
-// Example: node render.js /cli-izdat/archive/0001/CityNowhen/
+// Example: node render.js /euromancer/archive/0001/CityNowhen/
 
 import { chromium } from "playwright";
 import { mkdir } from "node:fs/promises";
@@ -17,7 +17,7 @@ const OUTPUT_ROOT = "slides";
 const postPath = process.argv[2];
 if (!postPath) {
   console.error("Usage: node render.js <post-url-path>");
-  console.error("Example: node render.js /cli-izdat/archive/0001/CityNowhen/");
+  console.error("Example: node render.js /euromancer/archive/0001/CityNowhen/");
   process.exit(1);
 }
 

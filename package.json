@@ -1,8 +1,8 @@
 {
-  "name": "cli-izdat",
+  "name": "euromancer",
   "version": "1.0.0",
   "type": "module",
-  "description": "https://aleglutz.github.io/cli-izdat/",
+  "description": "https://aleglutz.github.io/euromancer/",
   "main": "index.js",
  "scripts": {
   "dev": "eleventy --serve --watch",
@@ -10,15 +10,15 @@
 },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aleglutz/cli-izdat.git"
+    "url": "git+https://github.com/aleglutz/euromancer.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aleglutz/cli-izdat/issues"
+    "url": "https://github.com/aleglutz/euromancer/issues"
   },
-  "homepage": "https://github.com/aleglutz/cli-izdat#readme",
+  "homepage": "https://github.com/aleglutz/euromancer#readme",
   "devDependencies": {
     "@11ty/eleventy": "^3.1.5",
     "playwright": "^1.59.1"

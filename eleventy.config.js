@@ -1,6 +1,6 @@
 import figlet from "figlet";
 export default function(eleventyConfig) {
-    const pathPrefix = "/cli-izdat/";
+    const pathPrefix = "/euromancer/";
     eleventyConfig.addPassthroughCopy("css");
     eleventyConfig.addPassthroughCopy("assets");
     eleventyConfig.addPassthroughCopy("archive/**/attachments/**");

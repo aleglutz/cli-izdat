@@ -4,11 +4,11 @@ Guidance for Claude (claude.ai, Claude Code) when working with this repository.
 
 ## Project Overview
 
-**CLI-izdat** is a research and publishing project by Alég Lutohin exploring the aesthetic and conceptual relationship between Eastern Bloc samizdat practices and modern CLI/terminal interfaces. The repository hosts a static website and is being developed into a self-publishing pipeline where Markdown notes written in Obsidian become pages on the site.
+**euromancer** is a research and publishing project by Alég Lutohin exploring the aesthetic and conceptual relationship between Eastern Bloc samizdat practices and modern CLI/terminal interfaces. The repository hosts a static website and is being developed into a self-publishing pipeline where Markdown notes written in Obsidian become pages on the site.
 
-This is a hybrid research/publishing project, not a conventional software product. CLI-izdat is both the aesthetic and the operating principle — work with it should prioritize terminal-based interaction (git, npm, Eleventy) over GUI tools.
+This is a hybrid research/publishing project, not a conventional software product. euromancer is both the aesthetic and the operating principle — work with it should prioritize terminal-based interaction (git, npm, Eleventy) over GUI tools.
 
-Live site: https://aleglutz.github.io/cli-izdat/
+Live site: https://aleglutz.github.io/euromancer/
 
 ## Stack
 
@@ -16,7 +16,7 @@ Live site: https://aleglutz.github.io/cli-izdat/
 - **Template language:** Nunjucks (`.njk`) for layouts and pages
 - **Content:** Markdown with YAML frontmatter (equivalent to Obsidian Properties)
 - **Deployment:** GitHub Actions builds and deploys on push to `main`
-- **Hosting:** GitHub Pages, project site at `/cli-izdat/` path prefix
+- **Hosting:** GitHub Pages, project site at `/euromancer/` path prefix
 - **Node version:** 20 (set in `.github/workflows/deploy.yml`)
 
 ## Development Workflow
@@ -24,10 +24,10 @@ Live site: https://aleglutz.github.io/cli-izdat/
 ### Local preview
 
 ```sh
-npx @11ty/eleventy --serve --pathprefix=/cli-izdat/
+npx @11ty/eleventy --serve --pathprefix=/euromancer/
 ```
 
-Serves on `http://localhost:8080/cli-izdat/` — the pathPrefix mirrors the production URL, so internal links work identically in dev and on Pages.
+Serves on `http://localhost:8080/euromancer/` — the pathPrefix mirrors the production URL, so internal links work identically in dev and on Pages.
 
 ### Build once (no server)
 
@@ -42,7 +42,7 @@ Output goes to `_site/` (gitignored).
 1. Edit `.md` or `.njk` in Obsidian / any editor
 2. `git add -A && git commit -m "..." && git push`
 3. GitHub Actions rebuilds `_site/` and deploys to Pages
-4. Verify at https://aleglutz.github.io/cli-izdat/
+4. Verify at https://aleglutz.github.io/euromancer/
 
 No manual build or deploy steps — push is the publish action.
 
@@ -50,7 +50,7 @@ No manual build or deploy steps — push is the publish action.
 
 ```
 .
-├── eleventy.config.js          # ES module, pathPrefix: "/cli-izdat/"
+├── eleventy.config.js          # ES module, pathPrefix: "/euromancer/"
 ├── .eleventyignore             # README, pipeline docs, templates/, node_modules, .obsidian
 ├── .github/workflows/deploy.yml
 ├── .nojekyll                   # Tells Pages to skip Jekyll processing
@@ -95,7 +95,7 @@ All internal links use the `url` filter, never hardcoded paths:
 <a href="{{ '/archive/' | url }}">archive</a>
 ```
 
-The `url` filter automatically prepends `/cli-izdat/` from `pathPrefix` in `eleventy.config.js`. If the site ever moves to a custom domain, changing the prefix in one place updates every link.
+The `url` filter automatically prepends `/euromancer/` from `pathPrefix` in `eleventy.config.js`. If the site ever moves to a custom domain, changing the prefix in one place updates every link.
 
 **Important:** `.html` files are passthrough-copied without template processing. To use `{{ ... }}` filters, the file must be `.njk`.
 
@@ -156,7 +156,7 @@ The same Markdown source is intended to produce two representations:
 1. **Web page** — vertical slide stream, scrolled (current site work is here)
 2. **Instagram carousel** — PNG 1080×1350, rendered by Playwright against the same HTML templates
 
-`render.js` is implemented. Usage: `node render.js /cli-izdat/archive/0001/CityNowhen/` — requires the dev server running on port 8080. It opens the page at 1080×1350 (@2x), locates `.slide` elements, and screenshots each to `slides/{NNNN}-{Name}/slide-01.png` etc.
+`render.js` is implemented. Usage: `node render.js /euromancer/archive/0001/CityNowhen/` — requires the dev server running on port 8080. It opens the page at 1080×1350 (@2x), locates `.slide` elements, and screenshots each to `slides/{NNNN}-{Name}/slide-01.png` etc.
 
 **render-mode (open):** Instagram render needs larger font sizes than the web view. Planned approach: `--font-base` CSS custom property + a `.render-mode` class on `<body>` that overrides it, toggled by Playwright before screenshotting. Do not hardcode font sizes for this — use the CSS var override pattern.
 
@@ -165,7 +165,7 @@ The same Markdown source is intended to produce two representations:
 Two coexisting themes:
 
 - **Paper mode** (default): warm off-white `#f5f0e6`, dark ink `#1a1a18`, red accent `#cc3333` — samizdat printed matter
-- **Terminal mode** (`.cli-izdat` class on `<body>`): background `#0d1117`, text `#8b949e` — CRT terminal
+- **Terminal mode** (`.euromancer` class on `<body>`): background `#0d1117`, text `#8b949e` — CRT terminal
 
 Design tokens as CSS custom properties on `:root`. Spacing scale `--space-xs` (8px) through `--space-xl` (96px). Typography: Cascadia Code (body), Syne Mono (`h2`), IBM VGA 8x16 (`h3` subheadings), Erika Type (loaded but currently unused in layout).
 
@@ -210,7 +210,7 @@ Backlog:
 
 ## Working Principles
 
-- **CLI-first.** Prefer `git`, `npm`, `npx eleventy`, file editing, over GUI tools. CLI-izdat is both subject and method.
+- **CLI-first.** Prefer `git`, `npm`, `npx eleventy`, file editing, over GUI tools. euromancer is both subject and method.
 - **Pure terminal aesthetic.** Decorative layers (noise textures, scanlines, fade animations, hover overlays) have been deliberately stripped in prior sessions. Terminal purity is the concept — do not reintroduce effects without explicit request.
 - **Inline styles in HTML are avoided in site files.** Styles belong in `css/styles.css`. Exception: historical witness-page prototypes use inline styles for Claude-preview environment constraints; those files are separate from the main site.
 - **Valid shell semantics.** CLI prompts in content (e.g., `n_euromancer@typedeck:~$`) should use plausible command structures, not decorative fake syntax.
