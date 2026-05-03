@@ -251,13 +251,13 @@ nav .active {
 
 .row-with-media:nth-child(1) .row-media img {
   width: 50%;
-  margin-top: 48px;
-  margin-left: 50px;
+  margin-top: 40px;
+  margin-left: 80px;
 }
 
 .row-with-media:nth-child(2) .row-media img {
   width: 55%;
-  margin-top: 64px;
+  margin-top: 80px;
   margin-left: 100px;
 }
 
