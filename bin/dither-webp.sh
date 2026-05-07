@@ -13,19 +13,14 @@ magick \
 for src in "$@"; do
   [ -f "$src" ] || { echo "✗ not found: $src"; continue; }
   base="${src%.*}"
-  webp_out="${base}.dithered.webp"
-  jpg_out="${base}.dithered.jpg"
-
+  out="${base}.dithered.webp"
   magick "$src" \
     -auto-orient \
     -ordered-dither o4x4 \
     -remap "$PALETTE_FILE" \
-    \( +clone -define webp:lossless=true -write "$webp_out" +delete \) \
-    -quality 92 \
-    "$jpg_out"
-
-  echo "✓ $src → $webp_out"
-  echo "✓ $src → $jpg_out"
+    -define webp:lossless=true \
+    "$out"
+  echo "✓ $src → $out"
 done
 
 rm -f "$PALETTE_FILE"
